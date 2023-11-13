@@ -15,24 +15,13 @@ services:
     networks:
       - backend
 
-
-  phpmyadmin:
-    image: phpmyadmin
-    ports:
-      - 8080:80
-    depends_on:
-      - mysqldb
-    environment:
-      PMA_HOST: db
-      UPLOAD_LIMIT: 64M
-
   
   back:
     depends_on:
       - mysqldb
     build: 
-        context: ./back
-    # restart: unless-stopped
+        context: .
+    restart: unless-stopped
     env_file: ./.env
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
